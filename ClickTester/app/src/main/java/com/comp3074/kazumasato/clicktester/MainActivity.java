@@ -10,18 +10,15 @@ kazuma.sato@georgebrown.ca
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.ConsoleMessage;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.io.Console;
-
 
 public class MainActivity extends AppCompatActivity
-    implements View.OnClickListener{
+    implements View.OnClickListener, View.OnLongClickListener{
+
     private String eventName;
     private String viewName;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,18 +27,21 @@ public class MainActivity extends AppCompatActivity
 
         eventName = "";
         viewName = "";
-        Button button = (Button)findViewById(R.id.button1);
 
-        View red = findViewById(R.id.redViewTag);
-        View green = findViewById(R.id.greenViewTag);
-        View yellow = findViewById(R.id.yellowViewTag);
-        View blue = findViewById(R.id.blueViewTag);
+        Button button = (Button)findViewById(R.id.button1);
+        View views[] = {
+                findViewById(R.id.redViewTag),
+                findViewById(R.id.greenViewTag),
+                findViewById(R.id.yellowViewTag),
+                findViewById(R.id.blueViewTag)
+        };
 
         button.setOnClickListener(this);
-        red.setOnClickListener(this);
-        green.setOnClickListener(this);
-        blue.setOnClickListener(this);
-        yellow.setOnClickListener(this);
+        for(View i : views) {
+            i.setOnClickListener(this);
+            i.setOnLongClickListener(this);
+        }
+
     }
     @Override
     public void onClick(View v){
@@ -50,9 +50,20 @@ public class MainActivity extends AppCompatActivity
         getViewName(v);
 
         Toast.makeText(this
-                , "The " + viewName + " was " + eventName + "."
+                , "The " + viewName + " box was " + eventName + "."
                 , Toast.LENGTH_SHORT
             ).show();
+    }
+    public boolean onLongClick(View v){
+        eventName = "held";
+
+        getViewName(v);
+
+        Toast.makeText(this
+                , "The " + viewName + " box was " + eventName + "."
+                , Toast.LENGTH_SHORT
+        ).show();
+        return true;
     }
     private void getViewName(View v){
         switch (v.getId()){
