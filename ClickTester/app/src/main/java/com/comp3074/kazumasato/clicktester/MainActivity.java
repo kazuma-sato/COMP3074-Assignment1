@@ -7,6 +7,7 @@ Instructor Ilir Dema
 Kazuma Sato 100 948 212
 kazuma.sato@georgebrown.ca
 */
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity
         eventName = "";
         viewName = "";
 
-        Button button = (Button)findViewById(R.id.button1);
+        Button button = (Button) findViewById(R.id.button1);
         View views[] = {
                 findViewById(R.id.redViewTag),
                 findViewById(R.id.greenViewTag),
@@ -79,11 +80,11 @@ public class MainActivity extends AppCompatActivity
             case R.id.yellowViewTag:
                 viewName = "yellow";
                 break;
-            case R.id.button1:
-                exit();
-                break;
             default:
+                finish();
+                System.exit(0);
         }
+        return;
     }
     private void exit(){
 
